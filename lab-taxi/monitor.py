@@ -2,10 +2,11 @@ from collections import deque
 import sys
 import math
 import numpy as np
+import random
 
-def interact(env, agent, num_episodes=20000, window=100):
+def interact(env, agent, num_episodes=100000, window=1):
     """ Monitor agent's performance.
-    
+
     Params
     ======
     - env: instance of OpenAI Gym's Taxi-v1 environment
@@ -26,8 +27,13 @@ def interact(env, agent, num_episodes=20000, window=100):
     samp_rewards = deque(maxlen=window)
     # for each episode
     for i_episode in range(1, num_episodes+1):
+        #print(i_episode)
         # begin the episode
+        print(i_episode)
         state = env.reset()
+        #agent.epsilon = agent.epsilon - 1/float(num_episodes)
+        agent.epsilon = random.uniform(0, 1)
+        #agent.epsilon = 1.0 / i_episode
         # initialize the sampled reward
         samp_reward = 0
         while True:
